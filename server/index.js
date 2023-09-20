@@ -6,7 +6,7 @@ import { userRouter } from "./router/userRoutes.js";
 import { postRouter } from "./router/postRoutes.js";
 import cookieParser from "cookie-parser";
 dotenv.config();
-const app = express();
+const app = express(); 
 app.use(express.json());
 app.use(cookieParser());
 const PORT = process.env.PORT || 8888;

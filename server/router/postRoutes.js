@@ -1,10 +1,9 @@
 import express from 'express'
- 
-const route = express.Router() 
+import {getPosts} from '../controller/postController.js'
+const route = express.Router(); 
 
-route.get('/' , (req,res) => {
-    res.json('hye')
-})
+
+route.post('/' ,getPosts)  
 
 
 export {route as postRouter}
