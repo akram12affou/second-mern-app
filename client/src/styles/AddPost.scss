@@ -1,0 +1,30 @@
+.add-post-container {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  width: 50vw;
+margin: 0 auto;
+  input {
+    padding: 5px;
+  }
+  button {
+    border: none;
+    font-size: 0.9rem;
+    margin-left: 10px;
+    border: 1px solid black;
+    cursor: pointer;
+    padding: 7px;
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    transition: all 0.3s ease;
+    &:hover {
+      transform: scale(1.05);
+      background-color: white;
+      color: black;
+    }
+  }
+}

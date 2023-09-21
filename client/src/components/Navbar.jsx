@@ -6,6 +6,7 @@ function Navbar() {
   const navigate = useNavigate();
   const [cookie, setCookie, removeCookie] = useCookies(["accestoken"]);
   const logout = () => {
+    window.localStorage.removeItem('username')
     removeCookie('accestoken')
   }
   return (
@@ -14,7 +15,11 @@ function Navbar() {
       <div>
         <button onClick={() => navigate("/")}>home</button>
         {cookie.accestoken ? (
+          <>
+          <button  onClick={() => navigate("/saved-recipes")}>saved Recipes</button>
+          <span className="user-name">{window.localStorage.getItem('username')}</span>
           <button onClick={logout}>logout</button>
+          </>
         ) : (
           <button onClick={() => navigate("/auth")}>connect</button>
         )}

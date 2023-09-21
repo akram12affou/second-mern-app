@@ -12,7 +12,7 @@ const register = asyncHandler(async (req, res) => {
     const newUser = await new userModal({ username, password });
     newUser.save();
     const token = await generateToken(res, newUser._id);
-    res.json(token);
+    res.json({token,newUser});
     }
 });
 
@@ -22,7 +22,7 @@ const login = asyncHandler(async (req, res) => {
   if (user) {
     if (await user.matchPassword(password)) {
       const token  = await generateToken(res, user._id);
-      res.json(token);
+      res.json({token,user});
     } else { 
       res.status(403)
       throw Error("password or userame is incorrect")
