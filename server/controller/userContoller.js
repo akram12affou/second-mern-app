@@ -12,7 +12,7 @@ const register = asyncHandler(async (req, res) => {
     const newUser = await new userModal({ username, password });
     newUser.save();
     generateToken(res, newUser._id);
-    throw Error("user saved and logged succefully");
+    res.json("user saved and logged succefully");
   }
 });
 
@@ -22,7 +22,7 @@ const login = asyncHandler(async (req, res) => {
   if (user) {
     if (await user.matchPassword(password)) {
       generateToken(res, user._id);
-      throw Error("user logged in");
+      res.json("user logged in");
     } else { 
       res.status(403)
       throw Error("password or userame is incorrect")
