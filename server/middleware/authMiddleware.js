@@ -5,7 +5,7 @@ const verifyToken = async (req,res,next) =>  {
      if(!token){ 
           res.status(403).json('not logged in')
      }else{
-          const isTokenCorrect = await jwt.verify(token , "secret")
+          const isTokenCorrect = await jwt.verify(token ,process.env.JWT_SECRET)
           if(isTokenCorrect){
                next();
           }else{

@@ -1,0 +1,41 @@
+.auth-container{
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    height:40vh;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    font-size: 0.9rem;
+    max-width: 500px;
+    min-width: 250px;
+    input{
+        padding: 5px;
+    }
+    span{
+        color: #1a0060;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+        button {
+            border:none;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            border: 1px solid black;
+            cursor: pointer;
+            padding: 7px;
+            width: fit-content;
+            margin: 0 auto;
+            border-radius: 5px;
+         background-color: black;
+          color:white;
+            transition: all 0.3s ease;
+            &:hover {
+                transform: scale(1.05);
+                background-color: white;
+                color:black;
+                
+            }
+        }
+    
+}
