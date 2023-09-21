@@ -11,10 +11,10 @@ const userSchema = mongoose.Schema({
         type: String,
         required : true,
     },
-    posts :{
+    posts :[{
         type: mongoose.Types.ObjectId,
         required : false,
-    }
+    }]
 })
 userSchema.pre('save', async function (next) {
     this.password = await bcrypt.hash(this.password, 10);

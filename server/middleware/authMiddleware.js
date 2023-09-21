@@ -7,7 +7,6 @@ const verifyToken = async (req,res,next) =>  {
      }else{
           const isTokenCorrect = await jwt.verify(token , "secret")
           if(isTokenCorrect){
-               res.status(403).json('correct token')
                next();
           }else{
                res.status(403).json('false token')
