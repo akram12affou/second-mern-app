@@ -1,2 +1,2 @@
 .env
-node_modules
+**/sever/node_modules/**
