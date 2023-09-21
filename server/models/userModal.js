@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt'
 import mongoose from 'mongoose'
-
 const userSchema = mongoose.Schema({
     username: {
         type: String,
@@ -24,8 +23,5 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
-
-
-
 const userModal = mongoose.model('users',userSchema)
 export {userModal}

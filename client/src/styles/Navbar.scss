@@ -1,0 +1,17 @@
+.nav-container{
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+    width: 80vw;
+    height: 50px;
+    align-items: center;
+    div button {
+        border:none;
+        font-size: 1.1rem;
+        margin-left: 10px;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
