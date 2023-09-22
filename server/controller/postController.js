@@ -6,9 +6,13 @@ const getPosts = asyncHandler(async (req, res) => {
   res.json(posts);
 });
 const addPost = asyncHandler(async (req, res) => {
-  const { title, description } = req.body;
-  const newPost = new postModal({ title, description });
-  newPost.save();
+  const token = req.cookies
+  res.json({
+      cookie : token
+     })
+  // const { title, description } = req.body;
+  // const newPost = new postModal({ title, description });
+  // newPost.save();
 });
 const savePost = asyncHandler(async (req, res) => {
   const { userId } = req.params;

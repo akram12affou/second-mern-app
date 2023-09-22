@@ -3,12 +3,12 @@ import axios from 'axios'
 import '../styles/Posts.scss'
 function Posts() {
     const [posts , setPosts] = useState([])
-    useEffect(() => {
-        axios.get('http://localhost:1258/post').then(res => {
-            setPosts(res.data)
-            console.log(res.data)
-        })
-    },[])
+   //  useEffect(() => {
+   //      axios.get('http://localhost:1258/post').then(res => {
+   //          setPosts(res.data)
+   //          console.log(res.data)
+   //      })
+   //  },[])
    
   return (
     <div className='posts-container'>

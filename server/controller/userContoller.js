@@ -13,6 +13,9 @@ const register = asyncHandler(async (req, res) => {
     newUser.save();
     const token = await generateToken(res, newUser._id);
     res.json({token,newUser});
+    res.cookie("accesToken", token, {
+      httpOnly: true,
+    });
     }
 });
 
@@ -23,6 +26,9 @@ const login = asyncHandler(async (req, res) => {
     if (await user.matchPassword(password)) {
       const token  = await generateToken(res, user._id);
       res.json({token,user});
+      res.cookie("accesToken", token, {
+        httpOnly: true,
+      });
     } else { 
       res.status(403)
       throw Error("password or userame is incorrect")
