@@ -1,13 +1,13 @@
 import { userModal } from "../models/userModal.js";
 import { generateToken } from "../utils/generateToken.js";
 import asyncHandler from 'express-async-handler';
+import { responce } from "../utils/errorResponceHandler.js";
 
 const register = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
   const user = await userModal.findOne({ username });
   if (user) {
-    res.status(400)
-    throw Error("user already exists");
+    responce(res ,400 ,"user already exists")
   } else {
     const newUser = await new userModal({ username, password });
     newUser.save();
@@ -30,12 +30,10 @@ const login = asyncHandler(async (req, res) => {
         httpOnly: true,
       });
     } else { 
-      res.status(403)
-      throw Error("password or userame is incorrect")
+      responce(res ,403 ,"password or userame is incorrect")
     }
   } else {
-    res.status(403)
-    throw Error("user don't  exists");
+    responce(res ,404 ,"user don't  exists")
   }
 });
 

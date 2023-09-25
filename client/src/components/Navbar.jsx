@@ -7,6 +7,7 @@ function Navbar() {
   const [cookie, setCookie, removeCookie] = useCookies(["accestoken"]);
   const logout = () => {
     window.localStorage.removeItem('username')
+    window.localStorage.removeItem('userId')
     removeCookie('accestoken')
   }
   return (

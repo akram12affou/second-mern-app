@@ -1,20 +1,20 @@
 import jwt from "jsonwebtoken";
+import { responce } from "../utils/errorResponceHandler.js";
+import asyncHandler from "express-async-handler";
 import { userModal } from "../models/userModal.js";
-const verifyToken = async (req,res,next) =>  {
+const verifyToken = asyncHandler(async (req,res,next) =>  {
      const token = req.headers.token
-     console.log(token)
-     if(!token){ 
-          res.status(403).json('not logged in')
-     }else{
+     if(!token){
+          responce(res,400,'not logged in')
+     }else{ 
           const isTokenCorrect = await jwt.verify(token ,process.env.JWT_SECRET);
           req.user = await userModal.findById(isTokenCorrect.id)
-          console.log(req.user)
-          if(isTokenCorrect){ 
-               next();
+          if(isTokenCorrect){          
+                next();
           }else{
-               res.status(403).json('false token')
+               responce(res , 403 ,'false token')
           }
      }
-     next()
-} 
+      
+});
 export {verifyToken} 

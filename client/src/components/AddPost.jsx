@@ -20,12 +20,10 @@ function AddPost() {
       .then((res) => {
         console.log(res);
       });
-    // console.log(title,description);
   };
   return (
     <div className="add-post-container">
       <h3>Add Post</h3>
-
       <label htmlFor="">title :</label>
       <input
         type="text"
@@ -44,7 +42,9 @@ function AddPost() {
         }}
       />
       <br />
-      <button onClick={addPost}>Add Post</button>
+    {cookie.accestoken ? <button onClick={addPost}>Add Post</button> :
+    <code>connect to add your posts</code>
+    }
     </div>
   );
 }
