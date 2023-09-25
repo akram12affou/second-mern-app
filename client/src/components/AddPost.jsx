@@ -8,10 +8,14 @@ function AddPost() {
   const [cookie, setCookie, removeCookie] = useCookies(["accestoken"]);
 
   const addPost = () => {
+   
     axios
       .post(
         "http://localhost:1258/post/add-post",
-        { title, description }
+        { title, description }, {
+          headers : {
+            token : cookie.accestoken
+          }}
       )
       .then((res) => {
         console.log(res);
