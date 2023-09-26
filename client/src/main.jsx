@@ -4,7 +4,7 @@ import './main.css'
 import Navbar from "./components/Navbar.jsx";
 import Home from "./pages/Home.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SavedRecipes from "./pages/SavedRecipes.jsx";
+import SavedPosts from "./pages/SavedPosts.jsx";
 import Auth from "./pages/Auth";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Routes>
       <Route element={<Home />} path="/"></Route>
       <Route element={<Auth />} path="/auth"></Route>
-      <Route element={<SavedRecipes />} path="/saved-recipes"></Route>
+      <Route element={<SavedPosts />} path="/saved-recipes"></Route>
       
     </Routes>
   </BrowserRouter>

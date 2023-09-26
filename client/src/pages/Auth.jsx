@@ -36,6 +36,7 @@ function Auth() {
         })
         .catch((err) => {
           alert("error");
+          console.log(err)
         });
     }
   };

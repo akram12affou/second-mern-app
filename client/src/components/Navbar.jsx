@@ -9,15 +9,16 @@ function Navbar() {
     window.localStorage.removeItem('username')
     window.localStorage.removeItem('userId')
     removeCookie('accestoken')
+    navigate('/')
   }
   return (
     <div className="nav-container">
-      <div>SOCIAL</div>
+    
       <div>
         <button onClick={() => navigate("/")}>home</button>
         {cookie.accestoken ? (
           <>
-          <button  onClick={() => navigate("/saved-recipes")}>saved Recipes</button>
+          <button  onClick={() => navigate("/saved-recipes")}>saved Posts</button>
           <span className="user-name">{window.localStorage.getItem('username')}</span>
           <button onClick={logout}>logout</button>
           </>
