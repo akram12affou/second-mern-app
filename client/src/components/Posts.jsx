@@ -65,19 +65,20 @@ function Posts() {
 
   return (
     <div className="posts-container">
+ 
       {posts.map((post) => {
         return (
           <div key={post._id} className="post-container">
             <h2>{post.postTitle}</h2>
             <span>{post.description}</span>
-            <code>By {post.userOwner}</code>
+            <code>By {post.username}</code>
             <center>-</center>
             {showToUser(post) && (
               <>
                 <button onClick={() => deletePost(post._id)}>Delete</button>
               </>
             )}
-            {savedPostsIds.indexOf(post._id) == 0 ? (
+            {savedPostsIds.indexOf(post._id) !== -1 ? (
               <button>ALREADY SAVED</button>
             ) : (
               <button onClick={() => savePost(post._id)}>Save Post</button>
@@ -85,7 +86,7 @@ function Posts() {
           </div>
         );
       })}
-      {loading && (
+      {loading && ( 
         <center>
           <h2>loading ...</h2>
         </center>

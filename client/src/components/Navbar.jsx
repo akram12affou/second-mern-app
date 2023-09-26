@@ -14,18 +14,19 @@ function Navbar() {
   return (
     <div className="nav-container">
     
-      <div>
+    
         <button onClick={() => navigate("/")}>home</button>
         {cookie.accestoken ? (
           <>
           <button  onClick={() => navigate("/saved-recipes")}>saved Posts</button>
+          \\\
           <span className="user-name">{window.localStorage.getItem('username')}</span>
           <button onClick={logout}>logout</button>
           </>
         ) : (
           <button onClick={() => navigate("/auth")}>connect</button>
         )}
-      </div>
+    
     </div>
   );
 }

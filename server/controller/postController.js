@@ -2,10 +2,12 @@ import { postModal } from "../models/postModal.js";
 import asyncHandler from "express-async-handler";
 import { userModal } from "../models/userModal.js";
 import { responce } from "../utils/errorResponceHandler.js";
+
 const getPosts = asyncHandler(async (req, res) => {
   const posts = await postModal.find({});
   res.json(posts);
-});
+}); 
+
 const addPost = asyncHandler(async (req, res) => {
   try {
     const { title, description } = req.body;
@@ -13,9 +15,23 @@ const addPost = asyncHandler(async (req, res) => {
       postTitle: title,
       description,
       userOwner: req.user,
-    });
-    newPost.save();
+      username: req.user.username
+    }); 
+    newPost.save(); 
   } catch (err) {
+    responce(res, 400, err);
+  }
+});
+
+const deleteSavedPost = asyncHandler(async (req, res) => {
+  try {
+    const id = req.params.id;
+    const user = await userModal.findOne(req.user) 
+    user.posts = user.posts.filter(e => {
+       return e != id;
+      })   
+    user.save();
+  } catch (err) {  
     responce(res, 400, err);
   }
 });
@@ -23,11 +39,12 @@ const addPost = asyncHandler(async (req, res) => {
 const deletePost = asyncHandler(async (req, res) => {
   try {
     const id = req.params.id;
-    await postModal.findByIdAndDelete(id);
-  } catch (err) {
+    deleteSavedPost(req, res)
+    await postModal.findByIdAndDelete(id); 
+  } catch (err) {   
     responce(res, 400, err);
-  }
-});
+  }  
+}); 
 
 const savePost = asyncHandler(async (req, res) => {
   try {
@@ -40,6 +57,7 @@ const savePost = asyncHandler(async (req, res) => {
     responce(res, 400, err);
   } 
 });
+
 const getSavedPostIds = asyncHandler(async (req, res) => {
   try {
     const user = await userModal.findById(req.user.id);
@@ -48,6 +66,7 @@ const getSavedPostIds = asyncHandler(async (req, res) => {
     responce(res, 400, err);
   }
 });
+
 const getSavedPost = asyncHandler(async (req, res) => {
   try {
     const user = await userModal.findById(req.user.id);
@@ -59,6 +78,7 @@ const getSavedPost = asyncHandler(async (req, res) => {
     responce(res, 400, err);
   }
 });
+
 export {
   getPosts,
   addPost,
@@ -66,4 +86,5 @@ export {
   getSavedPostIds,
   getSavedPost,
   deletePost,
+  deleteSavedPost
 };

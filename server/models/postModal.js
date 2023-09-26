@@ -10,7 +10,11 @@ const postSchema = mongoose.Schema({
     userOwner :{
         type: mongoose.Types.ObjectId,
         required : true, 
-    }  
+    },
+    username: {
+        type: String,
+        required : true, 
+    }
 })  
  
 const postModal = mongoose.model('posts',postSchema)

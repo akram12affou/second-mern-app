@@ -1,26 +1,29 @@
 .nav-container{
-    display: flex;
-    margin: 0 auto;
-    justify-content: space-between;
-    width: 80vw;
-    height: 50px;
-    border-bottom: 1px solid black;
-    align-items: center;
-    div button {
-        border:none;
-        font-size: 1.1rem;
-        margin-left: 10px;
-        cursor: pointer;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-    .user-name{
-    color: aqua;
-    background: #000;
-    padding: 5px;
-    border-radius: 5px;
+   border-bottom: 1px black solid;
+   display: flex;
+   justify-content: center;
+   height: 50px;
+   align-items: center;
+   gap:5%;
+   button{
+    border: 3px rgb(113, 113, 113) solid ;
+    background: #c8ffbc;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: 1.1rem;
     letter-spacing: 1px;
-    margin-left: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 4px;
+    &:hover{
+        transform: scale(1.1);
     }
+  
+   }
+   .user-name{
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-decoration: underline red 4px ;
+}
 }

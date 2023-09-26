@@ -18,9 +18,18 @@ function savedPosts() {
         setLoading(false)
       });
   }, []);
+  const removeSavedPost = (id) => {
+    axios.delete('http://localhost:1258/post/delete-saved-post/' + id, {
+      headers: {
+        token: cookie.accestoken,
+      },
+    }).then(res => {
+      console.log(res)
+    })
+  }
   return (
     <>
-      {" "}
+      
       <center><h2>Saved Posts</h2></center>
       
       {savedPost.map((post) => {
@@ -30,7 +39,7 @@ function savedPosts() {
             <span>{post.description}</span>
             <code>By {post.userOwner}</code>
             <center>-</center>
-            <button>remove</button>
+            <button onClick={() => removeSavedPost(post._id)}>remove</button>
           </div>
         );
       })}

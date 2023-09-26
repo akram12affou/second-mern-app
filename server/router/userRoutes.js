@@ -1,6 +1,6 @@
 import express from 'express'
 import {register ,login} from '../controller/userContoller.js';
- 
+  
 
 const route = express.Router() 
 
