@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
-const postSchema = mongoose.Schema({  
+const { Schema ,model} = mongoose
+const postSchema = Schema({  
     postTitle: {
         type: String,
         required : true,
@@ -17,5 +18,4 @@ const postSchema = mongoose.Schema({
     }
 })  
  
-const postModal = mongoose.model('posts',postSchema)
-export {postModal}
+export const postModal = model('posts',postSchema)

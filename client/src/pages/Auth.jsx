@@ -50,7 +50,7 @@ function Auth() {
       />
       <label htmlFor="">password : </label>
       <input
-        type="text"
+        type="password"
         onChange={(e) => setPassowrd(e.target.value)}
         value={password}
       />

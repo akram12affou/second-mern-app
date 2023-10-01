@@ -65,17 +65,19 @@ function Posts() {
             <h2>{post.postTitle}</h2>
             <span>{post.description}</span>
             <code>By {post.username}</code>
-            <center>-</center>
+            <br />
             {showToUser(post) && (
               <>
                 <button onClick={() => deletePost(post._id)}>Delete</button>
               </>
-            )}
-            {savedPostsIds.indexOf(post._id) !== -1 ? (
+            )}{
+              cookie.accestoken && ( savedPostsIds.indexOf(post._id) !== -1 ? (
               <button>ALREADY SAVED</button>
             ) : (
-              <button onClick={() => savePost(post._id)}>Save Post</button>
-            )}
+           <button onClick={() => savePost(post._id)}>Save Post</button>
+            ))
+            }
+           
           </div>
         );
       })}

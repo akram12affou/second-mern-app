@@ -49,11 +49,10 @@ const deletePost = asyncHandler(async (req, res) => {
 const savePost = asyncHandler(async (req, res) => {
   try {
     const postId = req.params.postId;
-    // console.log(postId)
-    const user = await userModal.findById(req.user.id);
     const post = await postModal.findById(postId);
-    user.savedPosts.push(post);
-    user.save();
+    await userModal.findByIdAndUpdate(req.user.id , {
+      $push : {savedPosts:post}
+    });
   } catch (err) {
     responce(res, 400, err);
   } 
