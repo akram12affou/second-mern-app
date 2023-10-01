@@ -25,11 +25,11 @@ const addPost = asyncHandler(async (req, res) => {
 
 const deleteSavedPost = asyncHandler(async (req, res) => {
   try {
-    const id = req.params.id;
-    const user = await userModal.findOne(req.user) 
-    user.posts = user.posts.filter(e => {
-       return e != id;
-      })   
+    const id = req.user._id
+    const postId = req.params.id;
+    const user = await userModal.findByIdAndUpdate(id , {
+      $pull : { posts :postId }
+    }) 
     user.save();
   } catch (err) {  
     responce(res, 400, err);
@@ -37,10 +37,11 @@ const deleteSavedPost = asyncHandler(async (req, res) => {
 });
 
 const deletePost = asyncHandler(async (req, res) => {
+  const userOwner= req.user._id
   try {
-    const id = req.params.id;
-    deleteSavedPost(req, res)
-    await postModal.findByIdAndDelete(id); 
+   const id = req.params.id;
+   deleteSavedPost(req, res)
+   await postModal.findOneAndDelete({_id :id , userOwner : req.user._id})
   } catch (err) {   
     responce(res, 400, err);
   }  

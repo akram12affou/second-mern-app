@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+
 import axios from "axios";
 function savedPosts() {
+  
   const [loading, setLoading] = useState(false)
   const [cookie, setCookie, removeCookie] = useCookies(["accestoken"]);
   const [savedPost, setSavedPosts] = useState([]);
@@ -19,7 +21,8 @@ function savedPosts() {
       });
   }, []);
   const removeSavedPost = (id) => {
-    axios.delete('http://localhost:1258/post/delete-saved-post/' + id, {
+     
+    axios.delete(`http://localhost:1258/post/delete-saved-post/${id}`, {
       headers: {
         token: cookie.accestoken,
       },

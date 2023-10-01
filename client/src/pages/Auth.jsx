@@ -15,8 +15,7 @@ function Auth() {
       axios
         .post("http://localhost:1258/auth/register", { username, password })
         .then((res) => {
-          window.localStorage.setItem("userId", res.data.newUser._id);
-          window.localStorage.setItem("username", res.data.newUser.username);
+          window.localStorage.setItem('user' , JSON.stringify(res.data.user))
           setCookie("accestoken", res.data.token);
           navigate("/");
           alert("user created !");
@@ -29,8 +28,7 @@ function Auth() {
         .post("http://localhost:1258/auth/login", { username, password })
         .then((res) => {
           navigate("/");
-          window.localStorage.setItem("userId", res.data.user._id);
-          window.localStorage.setItem("username", res.data.user.username);
+          window.localStorage.setItem('user' , JSON.stringify(res.data.user))
           setCookie("accestoken", res.data.token);
           alert("user logged !");
         })

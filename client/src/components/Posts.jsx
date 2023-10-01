@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/Posts.scss";
 import { useCookies } from "react-cookie";
-
+import { useGetUserInfo } from "../hooks/getUserInfo";
 function Posts() {
-  const [cookie, setCookie, removeCookie] = useCookies(["accestoken"]);
+  const userId = JSON.parse(useGetUserInfo())._id
+  const [cookie, _] = useCookies(["accestoken"]);
   const [loading , setLoading] = useState(false)
   const [posts, setPosts] = useState([]);
   const [savedPostsIds, setSavedPostsIds] = useState([]);
@@ -15,10 +16,9 @@ function Posts() {
       setPosts(res.data);
     });
   }, []);
-
   const deletePost = (id) => {
     axios
-      .delete("http://localhost:1258/post/delete-post/" + id, {
+      .delete("http://localhost:1258/post/delete-post/" + id , {
         headers: {
           token: cookie.accestoken,
         },
@@ -28,7 +28,7 @@ function Posts() {
       });
   };
   const showToUser = (post) => {
-    return window.localStorage.getItem("userId") == post.userOwner;
+    return userId == post.userOwner;
   };
   const savePost = async (id) => {
     await axios

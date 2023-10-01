@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
         type: String,
         required : true,
     },
-    posts :[{
+    savedPosts :[{
         type: mongoose.Types.ObjectId,
         required : false,
     }]

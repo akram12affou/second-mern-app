@@ -12,7 +12,7 @@ const register = asyncHandler(async (req, res) => {
     const newUser = await new userModal({ username, password });
     newUser.save();
     const token = await generateToken(res, newUser._id);
-    res.json({token,newUser});
+    res.json({token,user :newUser});
     }
 });
 
