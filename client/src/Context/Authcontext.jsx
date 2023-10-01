@@ -1,12 +1,12 @@
 import { createContext,useReducer } from "react";
 import { useGetUserInfo } from "../hooks/getUserInfo";
-
+import { useEffect } from "react";
 const user = useGetUserInfo();
 
 const initialState = {
     loading : false,
     error : null,
-    user : user || JSON.parse(user)
+    user : JSON.parse(user) || null
 };
 export const AuthContext = createContext(initialState);
 
@@ -44,9 +44,9 @@ export const AuthContextProvider = ({children}) => {
  
     const [state , dispatch] = useReducer(AuthReducer,initialState);
 
-    // useEffect(() => {
-    //     localStorage.setItem("user", JSON.stringify(state.user));
-    // }, [state.user]);
+  useEffect(() => {
+      localStorage.setItem("user", JSON.stringify(state.user));
+  },[state.user]);
 
     const value = {
             loading : state.loading ,

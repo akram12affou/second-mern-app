@@ -28,7 +28,7 @@ const deleteSavedPost = asyncHandler(async (req, res) => {
     const id = req.user._id
     const postId = req.params.id;
     const user = await userModal.findByIdAndUpdate(id , {
-      $pull : { posts :postId }
+      $pull : { savedPosts :postId }
     }) 
     user.save();
   } catch (err) {  
@@ -37,7 +37,6 @@ const deleteSavedPost = asyncHandler(async (req, res) => {
 });
 
 const deletePost = asyncHandler(async (req, res) => {
-  const userOwner= req.user._id
   try {
    const id = req.params.id;
    deleteSavedPost(req, res)
@@ -50,9 +49,10 @@ const deletePost = asyncHandler(async (req, res) => {
 const savePost = asyncHandler(async (req, res) => {
   try {
     const postId = req.params.postId;
+    // console.log(postId)
     const user = await userModal.findById(req.user.id);
     const post = await postModal.findById(postId);
-    user.posts.push(post);
+    user.savedPosts.push(post);
     user.save();
   } catch (err) {
     responce(res, 400, err);
@@ -62,7 +62,7 @@ const savePost = asyncHandler(async (req, res) => {
 const getSavedPostIds = asyncHandler(async (req, res) => {
   try {
     const user = await userModal.findById(req.user.id);
-    res.json(user.posts);
+    res.json(user.savedPosts);
   } catch (err) {
     responce(res, 400, err);
   }
@@ -72,7 +72,7 @@ const getSavedPost = asyncHandler(async (req, res) => {
   try {
     const user = await userModal.findById(req.user.id);
     const savedPost = await postModal.find({
-      _id: { $in: user.posts },
+      _id: { $in: user.savedPosts },
     });
     res.json(savedPost);
   } catch (err) {

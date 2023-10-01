@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/Posts.scss";
+import { useFetch } from "../hooks/useFetch";
 import { useCookies } from "react-cookie";
 import { useGetUserInfo } from "../hooks/getUserInfo";
 function Posts() {
-  const userId = JSON.parse(useGetUserInfo())._id
+  const userId = JSON.parse(useGetUserInfo())?._id
   const [cookie, _] = useCookies(["accestoken"]);
-  const [loading , setLoading] = useState(false)
-  const [posts, setPosts] = useState([]);
   const [savedPostsIds, setSavedPostsIds] = useState([]);
-  useEffect(() => {
-    setLoading(true)
-    axios.get("http://localhost:1258/post").then((res) => {
-      setLoading(false)
-      setPosts(res.data);
-    });
-  }, []);
+  const {loading , data } = useFetch("http://localhost:1258/post")
   const deletePost = (id) => {
     axios
       .delete("http://localhost:1258/post/delete-post/" + id , {
@@ -31,6 +24,7 @@ function Posts() {
     return userId == post.userOwner;
   };
   const savePost = async (id) => {
+    
     await axios
       .post(
         "http://localhost:1258/post/save-post/" + id,
@@ -47,26 +41,25 @@ function Posts() {
       .catch((err) => {
         console.log(err);
       });
+      setRun(!run)
   };
   useEffect(() => {
-    const fetchUserSavedPosts = () => {
-      axios
-        .get("http://localhost:1258/post/saved-posts-ids", {
-          headers: {
-            token: cookie.accestoken,
-          },
-        })
-        .then((res) => {
-          setSavedPostsIds(res.data);
-        });
-    };
-    if (cookie.accestoken) fetchUserSavedPosts();
-  }, [savePost]);
-
+       const fetchUserSavedPosts = () => {
+        axios
+          .get("http://localhost:1258/post/saved-posts-ids", {
+            headers: {
+              token: cookie.accestoken,
+            },
+          })
+          .then((res) => {
+            setSavedPostsIds(res.data);
+          });
+      };
+      if (cookie.accestoken) fetchUserSavedPosts();
+  },[data])
   return (
     <div className="posts-container">
- 
-      {posts.map((post) => {
+      {data.map((post) => {
         return (
           <div key={post._id} className="post-container">
             <h2>{post.postTitle}</h2>
@@ -91,7 +84,7 @@ function Posts() {
           <h2>loading ...</h2>
         </center>
       )}
-       {(!loading && posts.length==0 ) &&<center><h3>  0 posts  </h3></center>}
+       {(!loading && data.length==0 ) &&<center><h3>  0 posts  </h3></center>}
     </div>
   );
 }

@@ -14,6 +14,7 @@ function Navbar() {
     removeCookie('accestoken')
     navigate('/')
   }
+  
   return (
     <div className="nav-container">
         <button onClick={() => navigate("/")}>home</button>
@@ -21,7 +22,7 @@ function Navbar() {
           <>
           <button  onClick={() => navigate("/saved-recipes")}>saved Posts</button>
           \\\
-          <span className="user-name">{JSON.parse(user).username}</span>
+          <span className="user-name">{user?.username}</span>
           <button onClick={logout}>logout</button>
           </>
         ) : (

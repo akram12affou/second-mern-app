@@ -4,37 +4,38 @@ import "../styles/Auth.scss";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../Context/Authcontext";
 function Auth() {
   const navigate = useNavigate();
-  const [cookie, setCookie, removeCookie] = useCookies(["accestoken"]);
+  const {loading , error ,user,dispatch} = useContext(AuthContext)
+  const [cookie, setCookie, _] = useCookies(["accestoken"]);
   const [username, setUsername] = useState("");
   const [password, setPassowrd] = useState("");
   const [register, setRegister] = useState(true);
   const authentificationProcces = () => {
+    dispatch({type:'LOGIN_START'});
     if (register) {
-      axios
-        .post("http://localhost:1258/auth/register", { username, password })
+      axios.post("http://localhost:1258/auth/register", { username, password })
         .then((res) => {
-          window.localStorage.setItem('user' , JSON.stringify(res.data.user))
+          dispatch({type:'LOGIN_SUCCES' , payload:res.data.user })
           setCookie("accestoken", res.data.token);
           navigate("/");
           alert("user created !");
         })
         .catch((err) => {
-          alert("error");
+          dispatch({type:'LOGIN_FAILED' , payload:err.response.data.message })
         });
     } else {
-      axios
-        .post("http://localhost:1258/auth/login", { username, password })
+      axios.post("http://localhost:1258/auth/login", { username, password })
         .then((res) => {
+          dispatch({type:'LOGIN_SUCCES' , payload:res.data.user })
           navigate("/");
-          window.localStorage.setItem('user' , JSON.stringify(res.data.user))
           setCookie("accestoken", res.data.token);
           alert("user logged !");
         })
         .catch((err) => {
-          alert("error");
-          console.log(err)
+          dispatch({type:'LOGIN_FAILED' , payload:err.response.data.message })
         });
     }
   };
@@ -59,6 +60,8 @@ function Auth() {
       <button onClick={authentificationProcces}>
         {register ? <>Register</> : <>Login</>}
       </button>
+      {loading && <center><p>auth procces ...</p></center>}
+      <code style={{color: 'red'}}>{error}</code>
     </div>
   );
 }

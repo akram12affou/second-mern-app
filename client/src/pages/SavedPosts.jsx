@@ -1,27 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-
+import { useFetch } from "../hooks/useFetch";
 import axios from "axios";
 function savedPosts() {
-  
-  const [loading, setLoading] = useState(false)
-  const [cookie, setCookie, removeCookie] = useCookies(["accestoken"]);
-  const [savedPost, setSavedPosts] = useState([]);
-  useEffect(() => {
-    setLoading(true)
-    axios
-      .get("http://localhost:1258/post/saved-posts", {
-        headers: {
-          token: cookie.accestoken,
-        },
-      })
-      .then((res) => {
-        setSavedPosts(res.data);
-        setLoading(false)
-      });
-  }, []);
+  const {loading , data } = useFetch("http://localhost:1258/post/saved-posts")
+  const [cookie, _] = useCookies(["accestoken"]);
   const removeSavedPost = (id) => {
-     
     axios.delete(`http://localhost:1258/post/delete-saved-post/${id}`, {
       headers: {
         token: cookie.accestoken,
@@ -31,11 +15,9 @@ function savedPosts() {
     })
   }
   return (
-    <>
-      
+    <>   
       <center><h2>Saved Posts</h2></center>
-      
-      {savedPost.map((post) => {
+      {data.map((post) => {
         return (
           <div key={post._id} className="post-container">
             <h2>{post.postTitle}</h2>
@@ -47,7 +29,7 @@ function savedPosts() {
         );
       })}
       {loading && <center><h2>loading...</h2></center>}
-      {(!loading && savedPost.length==0 ) &&<center><h3>  0 posts  </h3></center>}
+      {(!loading && data.length==0 ) &&<center><h3>  0 posts  </h3></center>}
     </>
   );
 }
