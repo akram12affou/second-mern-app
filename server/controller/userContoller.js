@@ -32,4 +32,8 @@ const login = asyncHandler(async (req, res) => {
   }
 });
 
-export { register, login };
+const getUser =  asyncHandler(async (req, res) => {
+     res.json(req.user)
+});
+
+export { register, login , getUser };

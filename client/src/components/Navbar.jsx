@@ -21,7 +21,7 @@ function Navbar() {
           <>
           <button  onClick={() => navigate("/saved-recipes")}>saved Posts</button>
           \\\
-          <img src={user.image || avatar} alt="" />
+          <img onClick={() => navigate("/update-user")} src={user.image || avatar} alt="" />
           <span className="user-name">{user?.username }</span>
           <button onClick={logout}>logout</button>
           </>

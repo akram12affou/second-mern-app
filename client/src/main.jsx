@@ -6,6 +6,7 @@ import Home from "./pages/Home.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SavedPosts from "./pages/SavedPosts.jsx";
 import Auth from "./pages/Auth";
+import UpdateUser from "./pages/UpdateUser";
 import { AuthContextProvider } from "./Context/Authcontext";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Routes>
         <Route element={<Home />} path="/"></Route>
         <Route element={<Auth />} path="/auth"></Route>
+        <Route element={<UpdateUser />} path="/update-user"></Route>
         <Route element={<SavedPosts />} path="/saved-recipes"></Route>
       </Routes>
     </AuthContextProvider>
