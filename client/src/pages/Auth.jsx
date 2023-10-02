@@ -12,11 +12,32 @@ function Auth() {
   const [cookie, setCookie, _] = useCookies(["accestoken"]);
   const [username, setUsername] = useState("");
   const [password, setPassowrd] = useState("");
+  const [image , setImage] = useState("")
   const [register, setRegister] = useState(true);
+  const convertToBase64 = (file) => {
+      return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+          resolve(fileReader.result)
+        };
+        fileReader.onerror = (error) => {
+          reject(error)
+        }
+      }) 
+  }
+  const hanfleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertToBase64(file);
+    setImage(base64)
+  }
+
+
   const authentificationProcces = () => {
     dispatch({type:'LOGIN_START'});
+    console.log(image)
     if (register) {
-      axios.post("http://localhost:1258/auth/register", { username, password })
+      axios.post("http://localhost:1258/auth/register", { username, password  ,image})
         .then((res) => {
           dispatch({type:'LOGIN_SUCCES' , payload:res.data.user })
           setCookie("accestoken", res.data.token);
@@ -54,9 +75,18 @@ function Auth() {
         onChange={(e) => setPassowrd(e.target.value)}
         value={password}
       />
+      
+     {register && <input  
+          type="file"
+          lable="Image"
+          name="image"
+          accept='.jpeg, .png, .jpg'
+          onChange={hanfleFileUpload}/>}
+          
       <span onClick={() => setRegister(!register)}>
         {register ? <>logged in ?</> : <>dont have an account ?</>}
       </span>
+      
       <button onClick={authentificationProcces}>
         {register ? <>Register</> : <>Login</>}
       </button>

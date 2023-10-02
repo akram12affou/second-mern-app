@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/Navbar.scss";
-import { useGetUserInfo } from "../hooks/getUserInfo";
+import avatar from '../images/userAvatar.png'
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -14,7 +14,6 @@ function Navbar() {
     removeCookie('accestoken')
     navigate('/')
   }
-  
   return (
     <div className="nav-container">
         <button onClick={() => navigate("/")}>home</button>
@@ -22,7 +21,8 @@ function Navbar() {
           <>
           <button  onClick={() => navigate("/saved-recipes")}>saved Posts</button>
           \\\
-          <span className="user-name">{user?.username}</span>
+          <img src={user.image || avatar} alt="" />
+          <span className="user-name">{user?.username }</span>
           <button onClick={logout}>logout</button>
           </>
         ) : (

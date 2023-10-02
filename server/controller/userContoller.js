@@ -4,12 +4,13 @@ import asyncHandler from 'express-async-handler';
 import { responce } from "../utils/errorResponceHandler.js";
 
 const register = asyncHandler(async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password,image } = req.body;
+  
   const user = await userModal.findOne({ username });
   if (user) {
     responce(res ,400 ,"user already exists")
   } else {
-    const newUser = await new userModal({ username, password });
+    const newUser = await new userModal({ username, password , image});
     newUser.save();
     const token = await generateToken(res, newUser._id);
     res.json({token,user :newUser});

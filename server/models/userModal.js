@@ -11,6 +11,10 @@ const userSchema = Schema({
         type: String,
         required : true,
     },
+    image:{
+        type: String,
+        required : false,
+    },
     savedPosts :[{
         type: mongoose.Types.ObjectId,
         required : false,
