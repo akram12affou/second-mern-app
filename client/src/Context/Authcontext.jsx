@@ -31,11 +31,31 @@ const AuthReducer = (state, action) => {
             user : null
           }
       case "LOGOUT":
+        window.localStorage.removeItem('user')
         return{
             loading : false,
             error : null,
             user : null
         }
+      case "USER_UPDATE_SUCCES":
+        console.log(action.payload)
+        return{
+            loading : false,
+            error : null,
+            user : action.payload
+        }
+      case "USER_UPDATE_START":
+        return{
+            loading : true,
+            error : null,
+            user : null
+        }
+      case 'USER_UPDATE_FAILED':
+        return{
+          loading : false,
+          error : action.payload,
+          user : null
+      }
       default:
         return state;
     }

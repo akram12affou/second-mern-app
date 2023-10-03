@@ -32,8 +32,21 @@ const login = asyncHandler(async (req, res) => {
   }
 });
 
-const getUser =  asyncHandler(async (req, res) => {
-     res.json(req.user)
+const updateUser =  asyncHandler(async (req, res) => {
+     const {username , password , newPassword} = req.body;
+     const id = req.user._id
+     const user = await userModal.findById(id)
+     if(await user.matchPassword(password)){
+      await  userModal.findByIdAndUpdate(
+           id , {
+                  username,
+           } , {new : true}
+         );
+     }else{
+      responce(res ,403 ,"password or userame is incorrect")
+     }
+     user.save();
+     res.json(user)
 });
 
-export { register, login , getUser };
+export { register, login , updateUser };

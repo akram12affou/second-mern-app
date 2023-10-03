@@ -10,7 +10,7 @@ function Navbar() {
   const navigate = useNavigate();
   const [cookie, _, removeCookie] = useCookies(["accestoken"]);
   const logout = () => {
-    window.localStorage.removeItem('user')
+    dispatch({type:'LOGOUT'})
     removeCookie('accestoken')
     navigate('/')
   }
@@ -20,9 +20,12 @@ function Navbar() {
         {cookie.accestoken ? (
           <>
           <button  onClick={() => navigate("/saved-recipes")}>saved Posts</button>
-          \\\
-          <img onClick={() => navigate("/update-user")} src={user.image || avatar} alt="" />
-          <span className="user-name">{user?.username }</span>
+       
+          {loading ? 'Update ...': <>   <img onClick={() => navigate("/update-user")} src={user?.image || avatar} alt="" />
+          <span className="user-name">{user?.username }</span></>}
+          <>
+          </>
+       
           <button onClick={logout}>logout</button>
           </>
         ) : (

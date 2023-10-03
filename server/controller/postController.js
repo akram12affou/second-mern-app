@@ -24,7 +24,7 @@ const addPost = asyncHandler(async (req, res) => {
 });
 
 const deleteSavedPost = asyncHandler(async (req, res) => {
-  try {
+  try { 
     const id = req.user._id
     const postId = req.params.id;
     const user = await userModal.findByIdAndUpdate(id , {

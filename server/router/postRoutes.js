@@ -17,4 +17,5 @@ route.delete("/delete-saved-post/:id", verifyToken, deleteSavedPost);
 route.post("/save-post/:postId", verifyToken, savePost);
 route.get("/saved-posts-ids", verifyToken, getSavedPostIds);
 route.get("/saved-posts", verifyToken, getSavedPost);
+
 export { route as postRouter };

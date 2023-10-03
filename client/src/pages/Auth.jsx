@@ -35,7 +35,6 @@ function Auth() {
 
   const authentificationProcces = () => {
     dispatch({type:'LOGIN_START'});
-    console.log(image)
     if (register) {
       axios.post("http://localhost:1258/auth/register", { username, password  ,image})
         .then((res) => {
