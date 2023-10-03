@@ -37,7 +37,7 @@ const AuthReducer = (state, action) => {
             error : null,
             user : null
         }
-      case "USER_UPDATE_SUCCES":
+      case "USER_UPDATE_SUCCESS":
         console.log(action.payload)
         return{
             loading : false,
@@ -54,7 +54,6 @@ const AuthReducer = (state, action) => {
         return{
           loading : false,
           error : action.payload,
-          user : null
       }
       default:
         return state;

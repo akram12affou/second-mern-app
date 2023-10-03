@@ -30,25 +30,33 @@ function UpdateUser() {
               token: cookie.accestoken,
             },
           }).then(res => {
-            dispatch({type:'USER_UPDATE_SUCCES', payload : 
+            
+            dispatch({type:'USER_UPDATE_SUCCESS', payload : 
               res.data
             });
+            navigate('/');
           }).catch(err => {
-            console.log(err.response.data.message)
             dispatch({type:'USER_UPDATE_FAILED', payload :err.response.data.message});
           });
-        // navigate('/')
+        
     };
   return (
     <div className='update-container'>
        <img  src={user?.image || avatar} alt="" />
+       <code>change you profile picture :</code>
+       <input  
+          type="file"
+          lable="Image"
+          name="image"
+          accept='.jpeg, .png, .jpg'
+          />
        <label htmlFor="">username : </label>
        <input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
         <br />
        <label htmlFor="">password : </label>
        <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
-       <br />
-       <button onClick={() => setUpdatePassword(!updatePassword)}>updatePassword</button>
+       {/* <br />
+       <button onClick={() => setUpdatePassword(!updatePassword)}>updatePassword</button> */}
        <br />
        {updatePassword &&
        <>
@@ -58,8 +66,6 @@ function UpdateUser() {
        <label htmlFor="">Confirm your new password : </label>
        <input type="text" value={newPasswordConfirm} onChange={(e) => setNewPasswordConfirm(e.target.value)} />
        <br />
-       
-      
        </>
        }
         
