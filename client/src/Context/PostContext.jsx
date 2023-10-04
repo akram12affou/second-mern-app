@@ -8,9 +8,13 @@ export const PostContext = createContext(initialState);
 
 const PostReducer = (state, action) => {
     switch (action.type) {
+      case "UPLOAD":
+        return {
+           posts : action.payload
+        };
       case "ADD_POST":
         return {
-           posts:[...posts , action.payload]
+           posts:[...state.posts , action.payload]
         };
       default:
         return state;

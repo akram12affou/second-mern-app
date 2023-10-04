@@ -18,6 +18,7 @@ const addPost = asyncHandler(async (req, res) => {
       username: req.user.username
     }); 
     newPost.save();
+    res.json(newPost)
   } catch (err) {
     responce(res, 400, err);
   }
@@ -31,6 +32,7 @@ const deleteSavedPost = asyncHandler(async (req, res) => {
       $pull : { savedPosts :postId }
     }) 
     user.save();
+ 
   } catch (err) {  
     responce(res, 400, err);
   }

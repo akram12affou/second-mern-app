@@ -3,15 +3,15 @@ import axios from "axios";
 import "../styles/Posts.scss";
 import { useFetch } from "../hooks/useFetch";
 import { useCookies } from "react-cookie";
-import { PostContext } from "../Context/PostContext";
 import { useGetUserInfo } from "../hooks/getUserInfo";
+import { PostContext } from "../Context/PostContext";
 function Posts() {
   const userId = JSON.parse(useGetUserInfo())?._id
   const [cookie, _] = useCookies(["accestoken"]);
   const [savedPostsIds, setSavedPostsIds] = useState([]);
   const {loading , data } = useFetch("http://localhost:1258/post")
-  const {posts } = useContext(PostContext)
-  console.log(posts)
+  const {posts,dispatch} = useContext(PostContext)
+
   
   const deletePost = (id) => {
     axios
@@ -49,6 +49,7 @@ function Posts() {
   };
 
   useEffect(() => {
+       dispatch({type:"UPLOAD" , payload : data})
        const fetchUserSavedPosts = () => {
         axios
           .get("http://localhost:1258/post/saved-posts-ids", {
@@ -64,7 +65,7 @@ function Posts() {
   },[data])
   return (
     <div className="posts-container">
-      {data.map((post) => {
+      {posts.map((post) => {
         return (
           <div key={post._id} className="post-container">
             <h2>{post.postTitle}</h2>
@@ -82,7 +83,6 @@ function Posts() {
            <button onClick={() => savePost(post._id)}>Save Post</button>
             ))
             }
-           
           </div>
         );
       })}
@@ -91,7 +91,7 @@ function Posts() {
           <h2>loading ...</h2>
         </center>
       )}
-       {(!loading && data.length==0 ) &&<center><h3>  0 posts  </h3></center>}
+       {(!loading && posts.length==0 ) &&<center><h3>  0 posts  </h3></center>}
     </div>
   );
 }

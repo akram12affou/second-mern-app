@@ -20,7 +20,6 @@ function Auth() {
     const base64 = await useConvertToBase64(file);
     setImage(base64)
   }
-
   const authentificationProcces = () => {
     dispatch({type:'LOGIN_START'});
     if (register) {

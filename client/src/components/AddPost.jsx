@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { PostContext } from "../Context/PostContext";
+import { useContext } from "react";
 import { useCookies } from "react-cookie";
 import "../styles/AddPost.scss";
 function AddPost() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [cookie,_] = useCookies(["accestoken"]);
-
+  const {posts , dispatch } = useContext(PostContext)
   const addPost = () => {
-   
     axios
       .post(
         "http://localhost:1258/post/add-post",
@@ -18,7 +19,9 @@ function AddPost() {
           }}
       )
       .then((res) => {
-        console.log(res);
+        dispatch({type:'ADD_POST',payload:res.data})
+      }).catch(err => {
+        console.log(err.response.data.message)
       });
   };
   return (
