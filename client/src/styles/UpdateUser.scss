@@ -14,6 +14,15 @@
             cursor: pointer;
         }
     }
+    svg{
+        border: 1px black solid;
+        border-radius: 7%;
+        padding: 2px;
+        background: #ffacac;
+        &:hover {
+            cursor:pointer
+        }
+    }
     input{
         padding: 5px;
     }

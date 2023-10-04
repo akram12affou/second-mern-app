@@ -2,36 +2,24 @@ import React from "react";
 import { useState } from "react";
 import "../styles/Auth.scss";
 import axios from "axios";
+import { useConvertToBase64 } from '../hooks/useConvertToBase64'
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Context/Authcontext";
 function Auth() {
   const navigate = useNavigate();
-  const {loading , error ,user,dispatch} = useContext(AuthContext)
+  const {loading , error ,dispatch} = useContext(AuthContext)
   const [cookie, setCookie, _] = useCookies(["accestoken"]);
   const [username, setUsername] = useState("");
   const [password, setPassowrd] = useState("");
   const [image , setImage] = useState("")
   const [register, setRegister] = useState(true);
-  const convertToBase64 = (file) => {
-      return new Promise((resolve, reject) => {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-        fileReader.onload = () => {
-          resolve(fileReader.result)
-        };
-        fileReader.onerror = (error) => {
-          reject(error)
-        }
-      }) 
-  }
   const hanfleFileUpload = async (e) => {
     const file = e.target.files[0];
-    const base64 = await convertToBase64(file);
+    const base64 = await useConvertToBase64(file);
     setImage(base64)
   }
-
 
   const authentificationProcces = () => {
     dispatch({type:'LOGIN_START'});

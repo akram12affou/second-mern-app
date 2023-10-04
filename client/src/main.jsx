@@ -8,8 +8,10 @@ import SavedPosts from "./pages/SavedPosts.jsx";
 import Auth from "./pages/Auth";
 import UpdateUser from "./pages/UpdateUser";
 import { AuthContextProvider } from "./Context/Authcontext";
+import { PostContextProvider } from "./Context/PostContext";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
+  <PostContextProvider>
     <AuthContextProvider>
       <Navbar />
       <Routes>
@@ -19,5 +21,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route element={<SavedPosts />} path="/saved-recipes"></Route>
       </Routes>
     </AuthContextProvider>
+    </PostContextProvider>
   </BrowserRouter>
 );

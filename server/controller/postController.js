@@ -17,7 +17,7 @@ const addPost = asyncHandler(async (req, res) => {
       userOwner: req.user,
       username: req.user.username
     }); 
-    newPost.save(); 
+    newPost.save();
   } catch (err) {
     responce(res, 400, err);
   }

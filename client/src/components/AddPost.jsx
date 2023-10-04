@@ -5,7 +5,7 @@ import "../styles/AddPost.scss";
 function AddPost() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [cookie, setCookie, removeCookie] = useCookies(["accestoken"]);
+  const [cookie,_] = useCookies(["accestoken"]);
 
   const addPost = () => {
    

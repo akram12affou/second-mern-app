@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/Posts.scss";
 import { useFetch } from "../hooks/useFetch";
 import { useCookies } from "react-cookie";
+import { PostContext } from "../Context/PostContext";
 import { useGetUserInfo } from "../hooks/getUserInfo";
 function Posts() {
   const userId = JSON.parse(useGetUserInfo())?._id
   const [cookie, _] = useCookies(["accestoken"]);
   const [savedPostsIds, setSavedPostsIds] = useState([]);
   const {loading , data } = useFetch("http://localhost:1258/post")
+  const {posts } = useContext(PostContext)
+  console.log(posts)
+  
   const deletePost = (id) => {
     axios
       .delete("http://localhost:1258/post/delete-post/" + id , {
@@ -19,12 +23,12 @@ function Posts() {
       .then((res) => {
         console.log(res);
       });
-  };
+  }; 
+   
   const showToUser = (post) => {
     return userId == post.userOwner;
   };
   const savePost = async (id) => {
-    
     await axios
       .post(
         "http://localhost:1258/post/save-post/" + id,
@@ -43,6 +47,7 @@ function Posts() {
       });
       setRun(!run)
   };
+
   useEffect(() => {
        const fetchUserSavedPosts = () => {
         axios

@@ -8,6 +8,7 @@ const initialState = {
     error : null,
     user : JSON.parse(user) || null
 };
+
 export const AuthContext = createContext(initialState);
 
 const AuthReducer = (state, action) => {
@@ -38,7 +39,6 @@ const AuthReducer = (state, action) => {
             user : null
         }
       case "USER_UPDATE_SUCCESS":
-        console.log(action.payload)
         return{
             loading : false,
             error : null,
@@ -53,15 +53,17 @@ const AuthReducer = (state, action) => {
       case 'USER_UPDATE_FAILED':
         return{
           loading : false,
-          error : action.payload,
+          error : action.payload.err,
+          user :  JSON.parse(action.payload.user)
       }
       default:
         return state;
     }
   };
+
 export const AuthContextProvider = ({children}) => {
  
-    const [state , dispatch] = useReducer(AuthReducer,initialState);
+const [state , dispatch] = useReducer(AuthReducer,initialState);
 
   useEffect(() => {
       localStorage.setItem("user", JSON.stringify(state.user));
