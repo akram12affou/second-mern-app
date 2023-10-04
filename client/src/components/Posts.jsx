@@ -12,8 +12,11 @@ function Posts() {
   const {loading , data } = useFetch("http://localhost:1258/post")
   const {posts,dispatch} = useContext(PostContext)
 
+
+   
   
   const deletePost = (id) => {
+    dispatch({type:'DELETE_POST' , payload:id})
     axios
       .delete("http://localhost:1258/post/delete-post/" + id , {
         headers: {
@@ -24,7 +27,6 @@ function Posts() {
         console.log(res);
       });
   }; 
-   
   const showToUser = (post) => {
     return userId == post.userOwner;
   };
@@ -65,7 +67,7 @@ function Posts() {
   },[data])
   return (
     <div className="posts-container">
-      {posts.map((post) => {
+      {posts?.map((post) => {
         return (
           <div key={post._id} className="post-container">
             <h2>{post.postTitle}</h2>
@@ -91,7 +93,7 @@ function Posts() {
           <h2>loading ...</h2>
         </center>
       )}
-       {(!loading && posts.length==0 ) &&<center><h3>  0 posts  </h3></center>}
+       {(!loading && posts?.length==0 ) &&<center><h3>  0 posts  </h3></center>}
     </div>
   );
 }

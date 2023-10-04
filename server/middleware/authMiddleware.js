@@ -18,9 +18,4 @@ const verifyToken = asyncHandler(async (req,res,next) =>  {
      } 
       
 });
-// const verifyUSer =  asyncHandler(async (req,res,next) =>  {
-//     verifyUSer(req , res , next , () => {
-//         if(req.user === req.params.id)
-//     })
-// });
 export {verifyToken} 
